@@ -9,6 +9,7 @@ public abstract class Tower {
 	}
 	
 	public void unregister(Flyable flyable) {
+		flyable.notifyUnregister();
 		this.observers.remove(flyable);
 	}
 	

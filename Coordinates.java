@@ -7,6 +7,14 @@ public class Coordinates {
 		this.longitude = longitude;
 		this.latitude = latitude;
 		this.height = height;
+		if (this.longitude < 0)
+			this.longitude = 0;
+		if (this.latitude < 0)
+			this.latitude = 0;
+		if (this.height < 0)
+			this.height = 0;
+		if (this.height > 100)
+			this.height = 100;
 	}
 	
 	public int getLongitude() {
@@ -19,5 +27,10 @@ public class Coordinates {
 	
 	public int getHeight() {
 		return this.height;
+	}
+	
+	@Override
+	public String toString() {
+		return ("[x: " + this.longitude + ",y: " + this.latitude + ",z: " + this.height + "]");
 	}
 }

@@ -11,31 +11,36 @@ public class Helicopter extends Aircraft implements Flyable {
 		String weather = this.weatherTower.getWeather(o);
 		
 		if (weather.equals("SUN")) {
-			System.out.println("Helicopter#" + this.name + "(" + this.id + "): Sun");
+			Simulator.add("Helicopter#" + this.name + "(" + this.id + "): Sun\n");
 			this.coordinates = new Coordinates(o.getLongitude() + 10, o.getLatitude(), Aircraft.heightClamp(o.getHeight() + 2));
 		}
 		else if (weather.equals("RAIN")) {
-			System.out.println("Helicopter#" + this.name + "(" + this.id + "): Rain");
+			Simulator.add("Helicopter#" + this.name + "(" + this.id + "): Rain\n");
 			this.coordinates = new Coordinates(o.getLongitude() + 5, o.getLatitude(), o.getHeight());
 		}
 		else if (weather.equals("FOG")) {
-			System.out.println("Helicopter#" + this.name + "(" + this.id + "): Fog");
+			Simulator.add("Helicopter#" + this.name + "(" + this.id + "): Fog\n");
 			this.coordinates = new Coordinates(o.getLongitude() + 1, o.getLatitude(), o.getHeight());
 		}
 		else if (weather.equals("SNOW")) {
-			System.out.println("Helicopter#" + this.name + "(" + this.id + "): Snow");
+			Simulator.add("Helicopter#" + this.name + "(" + this.id + "): Snow\n");
 			this.coordinates = new Coordinates(o.getLongitude(), o.getLatitude(), Aircraft.heightClamp(o.getHeight() - 12));
 		}
 		
 		if (this.coordinates.getHeight() <= 0) {
-			System.out.println("Helicopter#" + this.name + "(" + this.id + ") reported crashed, 12 deaths and 8 injuries.");
+			Simulator.add("Helicopter#" + this.name + "(" + this.id + ") reported crashed, 12 deaths and 8 injuries. " + o + "\n");
 			this.weatherTower.unregister((Flyable)this);
 		}
 	}
 	
 	@Override
 	public void registerTower(WeatherTower weatherTower) {
-		System.out.println("Tower says: Helicopter#" + this.name + "(" + this.id + ") registered to weather tower.");
+		Simulator.add("Tower says: Helicopter#" + this.name + "(" + this.id + ") registered to weather tower.\n");
 		this.weatherTower = weatherTower;
+	}
+	
+	@Override
+	public void notifyUnregister() {
+		Simulator.add("Tower says: Helicopter#" + this.name + "(" + this.id + ") unregistered fron weather tower\n");
 	}
 }
